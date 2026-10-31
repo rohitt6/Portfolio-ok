@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Sutradhar — Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151c2c', 950: '#090d16' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .cursor-glow {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(20, 184, 166, 0.05) 50%, transparent 70%);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Interactive Cursor Glow -->
+    <div id="cursor-glow" class="cursor-glow hidden md:block"></div>
+
+    <!-- Canvas Background Animation -->
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-wider bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">ROHIT SUTRADHAR</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-indigo-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+                <a href="#certifications" class="hover:text-indigo-400 transition-colors">Certifications</a>
+                <a href="#education" class="hover:text-indigo-400 transition-colors">Education</a>
+                <a href="mailto:rohitsutradhar929@gmail.com" class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-lg shadow-indigo-500/25 hover:scale-105">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6 animate-float">
+                <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
+                <span>BBA Student & Tech Strategist</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Bridging <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">Technology</span> &<br>
+                <span id="typewriter" class="text-slate-100"></span><span class="text-indigo-400 animate-pulse">|</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Specialized in leveraging Python, SQL, and AI tools to drive business growth, optimize operations, and execute measurable market strategies.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#projects" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-teal-600 hover:from-indigo-500 hover:to-teal-500 text-white font-semibold transition-all shadow-xl shadow-indigo-600/20 hover:-translate-y-1">Explore Projects</a>
+                <a href="https://github.com/rohitt6" target="_blank" class="px-8 py-3.5 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold transition-all flex items-center gap-2 hover:-translate-y-1">
+                    <i data-lucide="github" class="w-5 h-5"></i> GitHub
+                </a>
+                <a href="mailto:rohitsutradhar929@gmail.com" class="px-8 py-3.5 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold transition-all flex items-center gap-2 hover:-translate-y-1">
+                    <i data-lucide="mail" class="w-5 h-5 text-indigo-400"></i> Email Me
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="relative z-10 py-24 px-6 border-t border-slate-900">
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">Professional Summary</h2>
+            <div class="glass-card p-8 md:p-10 rounded-2xl shadow-xl border-l-4 border-l-indigo-500">
+                <p class="text-slate-300 leading-relaxed text-lg">
+                    Results-driven BBA student at Gurucharan University with a passion for building bridges between technology and business strategy. Proven ability to solve complex problems under pressure while maintaining composure. Specialized in leveraging Python, SQL, and AI tools to drive business growth and operational efficiency. Known for identifying market opportunities and translating them into actionable strategies that create measurable impact.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="relative z-10 py-24 px-6 border-t border-slate-900 bg-slate-900/30">
+        <div class="max-w-6xl mx-auto reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center">Core Competencies</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card tilt-card p-8 rounded-2xl border-slate-800 hover:border-indigo-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="terminal" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Technical</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">Python</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">SQL</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">Web Development</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">File Management Systems</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">Data Analysis</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-indigo-300 border border-indigo-500/20">AI Integration</span>
+                    </div>
+                </div>
+                <div class="glass-card tilt-card p-8 rounded-2xl border-slate-800 hover:border-teal-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Business</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-teal-300 border border-teal-500/20">Sales Strategy</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-teal-300 border border-teal-500/20">Marketing</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-teal-300 border border-teal-500/20">Business Development</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-teal-300 border border-teal-500/20">Strategic Planning</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-teal-300 border border-teal-500/20">Growth Hacking</span>
+                    </div>
+                </div>
+                <div class="glass-card tilt-card p-8 rounded-2xl border-slate-800 hover:border-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Leadership</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-purple-300 border border-purple-500/20">Crisis Management</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-purple-300 border border-purple-500/20">Problem-Solving</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-purple-300 border border-purple-500/20">Adaptability</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-purple-300 border border-purple-500/20">Team Collaboration</span>
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 text-purple-300 border border-purple-500/20">Communication</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative z-10 py-24 px-6 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center">GitHub Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card tilt-card p-8 rounded-2xl flex flex-col justify-between hover:border-indigo-500/50 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold group-hover:text-indigo-400 transition-colors">Wishh</h3>
+                            <a href="https://github.com/rohitt6/Wishh" target="_blank" class="p-2 rounded-lg bg-slate-800/80 text-indigo-400 hover:bg-indigo-600 hover:text-white transition-all">
+                                <i data-lucide="external-link" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                        <p class="text-slate-400 mb-6 leading-relaxed">Developed a dynamic HTML/CSS web application with interactive features and responsive design. Created an engaging user interface with smooth animations and intuitive navigation.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">HTML</span>
+                        <span class="px-3 py-1 rounded-full text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">CSS</span>
+                        <span class="px-3 py-1 rounded-full text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Web Design</span>
+                        <span class="px-3 py-1 rounded-full text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Frontend</span>
+                    </div>
+                </div>
+                <div class="glass-card tilt-card p-8 rounded-2xl flex flex-col justify-between hover:border-teal-500/50 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold group-hover:text-teal-400 transition-colors">Smart File Organizer</h3>
+                            <a href="https://github.com/rohitt6/smart-file-organizer" target="_blank" class="p-2 rounded-lg bg-slate-800/80 text-teal-400 hover:bg-teal-600 hover:text-white transition-all">
+                                <i data-lucide="external-link" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                        <p class="text-slate-400 mb-6 leading-relaxed">Built an intelligent Python automation tool that automatically categorizes and organizes files by type (Images, Videos, Documents, Audio, Archives) with custom folder creation logic.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs bg-teal-500/10 text-teal-400 border border-teal-500/20">Python</span>
+                        <span class="px-3 py-1 rounded-full text-xs bg-teal-500/10 text-teal-400 border border-teal-500/20">File Management</span>
+                        <span class="px-3 py-1 rounded-full text-xs bg-teal-500/10 text-teal-400 border border-teal-500/20">System Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Education Section -->
+    <section id="certifications" class="relative z-10 py-24 px-6 border-t border-slate-900 bg-slate-900/30">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 reveal">
+            <div>
+                <h2 class="text-3xl font-bold mb-8">Certifications & Training</h2>
+                <div class="space-y-6">
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-indigo-500">
+                        <h3 class="text-xl font-semibold mb-1">TATA — GenAI Powered Data Analytics</h3>
+                        <p class="text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-3">Forage Job Simulation</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">Hands-on experience in generative AI applications, data analytics, business intelligence, and predictive modeling for real-world business problems.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-teal-500">
+                        <h3 class="text-xl font-semibold mb-1">TATA — Cybersecurity Analyst</h3>
+                        <p class="text-teal-400 text-xs font-semibold uppercase tracking-wider mb-3">Forage Job Simulation</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">Practical expertise in threat analysis, vulnerability assessment, incident response, and enterprise security best practices.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education">
+                <h2 class="text-3xl font-bold mb-8">Education & Honours</h2>
+                <div class="space-y-6">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="text-lg font-bold text-white">Gurucharan University</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300">Currently Enrolled</span>
+                        </div>
+                        <p class="text-slate-400 text-sm">Bachelor of Business Administration (BBA) — 1st Year</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="text-lg font-bold text-white">Kendriya Vidyalaya PM SHRI, Masimpur</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">2026</span>
+                        </div>
+                        <p class="text-slate-400 text-sm">12th Grade — Commerce with Informatics Practices</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-amber-500/20">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="award" class="w-5 h-5 text-amber-400"></i>
+                            <h3 class="text-lg font-bold text-amber-300">Regional Level Athlete (Kho Kho)</h3>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">Represented Kendriya Vidyalaya at the Regional Championship on two occasions with distinction, demonstrating strategic thinking, endurance, and composure under pressure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-12 px-6 border-t border-slate-900 text-center text-slate-400 text-sm">
+        <div class="max-w-4xl mx-auto flex flex-col items-center gap-4">
+            <div class="flex items-center gap-6">
+                <a href="mailto:rohitsutradhar929@gmail.com" class="hover:text-indigo-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> rohitsutradhar929@gmail.com
+                </a>
+                <a href="https://github.com/rohitt6" target="_blank" class="hover:text-indigo-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="github" class="w-4 h-4"></i> github.com/rohitt6
+                </a>
+            </div>
+            <p class="text-slate-500">Badarpur, Cachar, Assam • © 2026 Rohit Sutradhar</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Typewriter Effect
+        const words = ["Business Strategy.", "Data Analytics.", "AI Automation.", "Growth Hacking."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeTarget = document.getElementById("typewriter");
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                typeTarget.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeTarget.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let speed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                speed = 1800;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                speed = 400;
+            }
+            setTimeout(typeEffect, speed);
+        }
+        typeEffect();
+
+        // Cursor Glow Follower
+        const cursorGlow = document.getElementById("cursor-glow");
+        window.addEventListener("mousemove", (e) => {
+            cursorGlow.style.left = e.clientX + "px";
+            cursorGlow.style.top = e.clientY + "px";
+        });
+
+        // 3D Card Tilt Effect
+        document.querySelectorAll(".tilt-card").forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+            });
+        });
+
+        // Scroll Reveal Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+        // Interactive Canvas Particle Network
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = Array.from({ length: 55 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            radius: Math.random() * 1.8 + 0.6
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.35)';
+            ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
+
+            particles.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
+
